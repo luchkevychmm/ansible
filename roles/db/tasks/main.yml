@@ -1,0 +1,21 @@
+---
+- name: Install PostgreSQL
+  apt:
+    name: postgresql
+    state: present
+
+- name: Configure PostgreSQL database
+  postgresql_db:
+    name: "{{ db_name }}"
+    login_user: postgres
+    login_password: postgres
+    encoding: UTF-8
+
+- name: Create PostgreSQL user
+  postgresql_user:
+    name: "{{ db_user }}"
+    password: "{{ db_pass }}"
+    login_user: postgres
+    login_password: postgres
+    roles:
+      - "{{ db_name }}"
